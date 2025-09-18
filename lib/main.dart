@@ -40,19 +40,25 @@ class MyHomePage extends StatelessWidget {
             DataColumn(
               label: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 150),
-                child: const Text("Habit"),
+                child: const Text("Habit",
+                    textAlign: TextAlign.center,
+                ),
+      ),
               ),
-            ),
             DataColumn(
               label: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 150),
-                child: const Text("Date"),
+                child: const Text("Date",
+                  textAlign: TextAlign.center,
+          ),
+        ),
               ),
-            ),
           ],
           rows: const [
             DataRow(cells: [
-              DataCell(Text("hi")),
+              DataCell(
+                  child: TextField(style: )),
+
               DataCell(Text("hi")),
             ]),
           ],
