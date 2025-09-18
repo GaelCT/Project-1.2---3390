@@ -29,18 +29,32 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Table(
-        border: TableBorder.all(color: Colors.white),
-        defaultVerticalAlignment: TableCellVerticalAlignment.fill,
-        children: [
-          TableRow(
-              decoration: BoxDecoration()
-          ),
-        ],
-      )
-      ,
+    return Scaffold(
+      body: Center(
+        //child: Center()
+        child: DataTable(
+          border: TableBorder.all(color: Colors.black),
+          columns: const[
+            DataColumn(label: Text("Habit")),
+            DataColumn(label: Text("Date")),
+          ],
+          rows: const[
+            DataRow(cells: [
+              DataCell(Text("hi")),
+            ]),
 
+          ],
+
+          //border: TableBorder.all(color: Colors.white),
+          //defaultVerticalAlignment: TableCellVerticalAlignment.fill,
+          //children: [
+          //  TableRow(
+          //      decoration: BoxDecoration()
+          //  ),
+          //  children: []
+          //],
+        ),
+      ),
     );
   }
 }
