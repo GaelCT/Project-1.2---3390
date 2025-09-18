@@ -7,7 +7,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple.shade400,
+          seedColor: Colors.deepPurple.shade400,
           brightness: Brightness.dark,
         ),
       ),
@@ -31,31 +30,34 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        //child: Center()
         child: DataTable(
-          border: TableBorder.all(color: Colors.black),
-          columns: const[
-            DataColumn(label: Text("Habit")),
-            DataColumn(label: Text("Date")),
+          border: TableBorder.all(color: Colors.white),
+          headingTextStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          columns: [
+            DataColumn(
+              label: ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 150),
+                child: const Text("Habit"),
+              ),
+            ),
+            DataColumn(
+              label: ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 150),
+                child: const Text("Date"),
+              ),
+            ),
           ],
-          rows: const[
+          rows: const [
             DataRow(cells: [
               DataCell(Text("hi")),
+              DataCell(Text("hi")),
             ]),
-
           ],
-
-          //border: TableBorder.all(color: Colors.white),
-          //defaultVerticalAlignment: TableCellVerticalAlignment.fill,
-          //children: [
-          //  TableRow(
-          //      decoration: BoxDecoration()
-          //  ),
-          //  children: []
-          //],
         ),
       ),
     );
   }
 }
-
