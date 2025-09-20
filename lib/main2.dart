@@ -68,9 +68,8 @@ final textController = TextEditingController();
     return Scaffold(
       body: Column(
 children: [
-  Padding(padding: EdgeInsetsGeometry.all(9.0)
-    , child: TextField(
-      controller: textController,
+  Padding(padding: EdgeInsets.all(9.0),
+    child: TextField(
       decoration: InputDecoration(
         labelText: 'Habit',
         hintText: 'Enter The Habit Here!',
@@ -85,7 +84,7 @@ children: [
     TextField(controller: textController,);
     return ListTile(
     title: Text(habit.activity),
-    subtitle: Text(habit.date.toString()), //need a to string since date is a int
+    subtitle: Text(habit.date.toString()), //need a to string since date is a another type
     hoverColor: Colors.grey,
     );
     },
@@ -104,17 +103,11 @@ children: [
         foregroundColor: Colors.grey,
       ),
     );
+              }
+          }
 
 
-                );
-              },
-          ),
-      ),
-
-  }
-}
-
-class textfieldclass extends StatefulWidget {
+/*class textfieldclass extends StatefulWidget {
   const textfieldclass({super.key});
 
   @override
@@ -133,7 +126,7 @@ class _textfieldclassState extends State<textfieldclass> {
       ),
     );
   }
-}
+}*/
 
 
 
