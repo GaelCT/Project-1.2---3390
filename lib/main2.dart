@@ -38,9 +38,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-//class TextEditingControllerfunction {
-//  TextEditingController controller = TextEditingController();
-//}
+
 
 class Habit{
   String activity;
@@ -68,32 +66,54 @@ final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          child: ListView.builder(
-            itemCount: habits.length,
-              itemBuilder: (context, index) {
-                final habits = [index];
-                return ListTile(
-                  title: Text(habits.activity),
-                  subtitle: Text(habits.date.toString()),
-                  hoverColor: Colors.grey,
-                );
-              },
-          ),
+      body: Column(
+children: [
+  Padding(padding: EdgeInsetsGeometry.all(9.0)
+    , child: TextField(
+      controller: textController,
+      decoration: InputDecoration(
+        labelText: 'Habit',
+        hintText: 'Enter The Habit Here!',
+         ),
+     ),
+  ),
+    Expanded(
+      child: ListView.builder(
+        itemCount: habits.length,
+        itemBuilder: (context, index) {
+    final habit = habits[index];
+    TextField(controller: textController,);
+    return ListTile(
+    title: Text(habit.activity),
+    subtitle: Text(habit.date.toString()), //need a to string since date is a int
+    hoverColor: Colors.grey,
+    );
+    },
+    )
+    )
+    ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton.extended( onPressed: () {
         addHabit(Habit(textController.text, DateTime.now()));
-        //textController.clear();
+        textController.clear();
       },
-          label: Text("Add"),
-          icon: Icon(Icons.add),
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.grey,
-          ),
+        label: Text("Add"),
+        icon: Icon(Icons.add),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.grey,
+      ),
     );
+
+
+                );
+              },
+          ),
+      ),
+
   }
 }
+
 class textfieldclass extends StatefulWidget {
   const textfieldclass({super.key});
 
@@ -108,9 +128,8 @@ class _textfieldclassState extends State<textfieldclass> {
       child: TextField(
         decoration: InputDecoration(
           labelText: 'Habit',
-          hintText: 'Enter The Habit Here!'
+          hintText: 'Enter The Habit Here!',
         ),
-          //TextEditingController _controller = TextEditingController(),
       ),
     );
   }
