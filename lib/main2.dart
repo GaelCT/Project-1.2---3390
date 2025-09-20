@@ -57,9 +57,10 @@ class _HomePageState extends State<HomePage> {
    setState(() => habits.add(h));
  }
  void removeHabit(int counter){
-   setState(() => removeAt(counter));
+   setState(() => habits.removeAt(counter));
  }
-
+final textController = TextEditingController();
+ //cant use const because this will not be a static
  /*Widget NewBuildHabitTile(Habit habit, int element){
    return ListTile()
  }*/
@@ -73,28 +74,22 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 final habits = [index];
                 return ListTile(
-                  title: Text(habits.name),
-                  subtitle: Text(habits.date),
+                  title: Text(habits.activity),
+                  subtitle: Text(habits.date.toString()),
                   hoverColor: Colors.grey,
-
                 );
               },
-
           ),
-
-
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton.extended(
-
-          child: Icon(Icons.add),
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.grey, onPressed: () {
-          addHabit(h),
-          controller.clear(),
+      floatingActionButton: FloatingActionButton.extended( onPressed: () {
+        addHabit(Habit(textController.text, DateTime.now()));
+        //textController.clear();
       },
-        label: Text("Add"),
-
+          label: Text("Add"),
+          icon: Icon(Icons.add),
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.grey,
           ),
     );
   }
