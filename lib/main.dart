@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -27,6 +28,10 @@ class Habit {
   String activity;
   DateTime date;
   Habit(this.activity, this.date);
+
+  String customDateTime() {
+    return DateFormat('HH:mm - dd-MM-yyyy').format(date);
+  }
 }
 
 class _HomePageState extends State<HomePage> {
@@ -53,37 +58,69 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Padding(
-              padding: EdgeInsets.all(40.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Habit',
-                        hintText: 'Enter The Habit Here!',
+            padding: EdgeInsets.all(40.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: textController,
+                    decoration: InputDecoration(
+                      labelText: 'Habit',
+                      hintText: 'Enter The Habit Here!',
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 3,
-                        )
-                      )),
+                        borderSide: BorderSide(color: Colors.white,
+                            width: 3,
+                        ),
+                      ),
                     ),
+                    onSubmitted: (value) {
+                      final text = textController.text.trim();
+                      if (text.isEmpty) return; // ignore empty input
+                      addHabit(Habit(text, DateTime.now()));
+                      textController.clear();
+                    },
                   ),
-                ],
-              )
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: ListView.builder(
               itemCount: habits.length,
+              //padding: EdgeInsets.all(30)),
               itemBuilder: (context, index) {
                 final habit = habits[index];
-                TextField(controller: textController);
+                TextField(
+                  controller:
+                      textController, //need to have this in order to manage the textfield
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 3),
+                    ),
+                  ),
+                );
                 return ListTile(
-                  title: Text(habit.activity),
+                  tileColor: Colors.grey.shade900,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  title: Text(
+                    textAlign: TextAlign.center,
+                    habit.activity,
+
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.5,
+                    ),
+                  ),
                   subtitle: Text(
-                    habit.date.toString(),
+                    DateFormat('dd-MM-yyyy - hh:mm a').format(habit.date),
+                    textAlign: TextAlign.center,
+                     //textWidthBasis: TextWidthBasis.values,
+                    //lowercase the hh for non military time
+                    //habit.date.toString(), Cant use this since I have the custom function
                   ), //need a to string since date is a another type
-                  hoverColor: Colors.grey,
+                  hoverColor: Colors.grey, // doesnt even work on my screen
                 );
               },
             ),
@@ -93,17 +130,19 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          final dateFormat = DateFormat('dd-MM-yyyy - HH:mm');
-          final text = textController.text; //making it easier to type out
+          final dateFormat = DateFormat('HH:mm - dd-MM-yyyy');
+          final text = textController.text
+              .trim(); //making it easier to type out and detect white space
+
+          if (text.isEmpty) return;
           addHabit(Habit(text, DateTime.now()));
           textController.clear();
         },
         label: Text("Add"),
         icon: Icon(Icons.add),
         backgroundColor: Colors.black,
-        foregroundColor: Colors.grey,
+        foregroundColor: Colors.white,
       ),
     );
   }
 }
-
