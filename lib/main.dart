@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Padding(
-              padding: EdgeInsets.all(9.0),
+              padding: EdgeInsets.all(40.0),
               child: Row(
                 children: [
                   Expanded(
@@ -61,7 +61,12 @@ class _HomePageState extends State<HomePage> {
                       decoration: InputDecoration(
                         labelText: 'Habit',
                         hintText: 'Enter The Habit Here!',
-                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 3,
+                        )
+                      )),
                     ),
                   ),
                 ],
@@ -88,7 +93,9 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          addHabit(Habit(textController.text, DateTime.now()));
+          final dateFormat = DateFormat('dd-MM-yyyy - HH:mm');
+          final text = textController.text; //making it easier to type out
+          addHabit(Habit(text, DateTime.now()));
           textController.clear();
         },
         label: Text("Add"),
